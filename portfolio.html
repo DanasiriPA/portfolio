@@ -23,6 +23,8 @@
       --item-hover: #e3eaff;
       --nav-bg: rgba(255,255,255,0.92);
       --nav-shadow: 0 2px 12px 0 rgba(80, 120, 200, 0.10);
+      --glass-bg: rgba(255,255,255,0.55);
+      --glass-blur: blur(16px);
     }
     html, body {
       margin: 0;
@@ -32,14 +34,40 @@
       color: #232946;
       min-height: 100vh;
       scroll-behavior: smooth;
+      position: relative;
+      overflow-x: hidden;
     }
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+    /* Animated background behind header */
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 60vh;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
     }
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.23;
+      animation: floatBubble 14s linear infinite;
+      filter: blur(2px);
+      background: radial-gradient(circle at 30% 30%, #3a5aff 0%, #e0e7ff 100%);
+      mix-blend-mode: lighten;
+    }
+    .bubble:nth-child(1) { width: 180px; height: 180px; left: 8vw; top: 10vh; animation-delay: 0s; }
+    .bubble:nth-child(2) { width: 120px; height: 120px; left: 70vw; top: 12vh; animation-delay: 2s; background: radial-gradient(circle at 70% 70%, #1a237e 0%, #b4c5ff 100%);}
+    .bubble:nth-child(3) { width: 90px; height: 90px; left: 40vw; top: 5vh; animation-delay: 4s; background: radial-gradient(circle at 50% 50%, #3a5aff 0%, #fff 100%);}
+    .bubble:nth-child(4) { width: 140px; height: 140px; left: 60vw; top: 25vh; animation-delay: 6s; background: radial-gradient(circle at 60% 60%, #e0e7ff 0%, #3a5aff 100%);}
+    .bubble:nth-child(5) { width: 70px; height: 70px; left: 20vw; top: 30vh; animation-delay: 8s; background: radial-gradient(circle at 40% 40%, #b4c5ff 0%, #3a5aff 100%);}
+    @keyframes floatBubble {
+      0% { transform: translateY(0) scale(1);}
+      50% { transform: translateY(-40px) scale(1.08);}
+      100% { transform: translateY(0) scale(1);}
+    }
+    /* Header glass effect */
     header {
-      background: var(--card-bg);
+      background: var(--glass-bg);
       box-shadow: var(--shadow);
       border-radius: 0 0 2rem 2rem;
       padding: 2.5rem 1rem 2rem 1rem;
@@ -47,7 +75,10 @@
       margin-bottom: 2rem;
       position: relative;
       z-index: 2;
-      animation: fadeInDown 1s ease forwards;
+      animation: fadeInDown 1s cubic-bezier(.4,1.4,.6,1) forwards;
+      backdrop-filter: var(--glass-blur);
+      border-bottom: 2px solid #e0e7ff;
+      overflow: visible;
     }
     .profile-pic {
       width: 140px;
@@ -57,25 +88,53 @@
       border: 4px solid var(--primary);
       margin: 1rem auto 1.2rem;
       display: block;
-      box-shadow: 0 0 16px rgba(58,90,255,0.08);
+      box-shadow: 0 0 32px 0 rgba(58,90,255,0.18), 0 0 0 12px rgba(58,90,255,0.07);
       background: #e0e7ff;
-      animation: fadeIn 1s ease forwards;
+      animation: popIn 1.2s cubic-bezier(.4,1.4,.6,1) forwards;
       opacity: 0;
       animation-delay: 0.5s;
+      transition: box-shadow 0.3s;
+      position: relative;
+      z-index: 2;
+    }
+    .profile-pic:hover {
+      box-shadow: 0 0 48px 0 #3a5aff55, 0 0 0 18px #b4c5ff33;
+      transform: scale(1.04) rotate(-2deg);
+      transition: box-shadow 0.4s, transform 0.4s;
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.7);}
+      80% { opacity: 1; transform: scale(1.08);}
+      100% { opacity: 1; transform: scale(1);}
     }
     header h1 {
-      font-size: 2.7rem;
+      font-size: 2.9rem;
       font-weight: 800;
       color: var(--heading);
       margin-bottom: 0.3rem;
       letter-spacing: 0.01em;
-      animation: slideInLeft 1s ease forwards;
-      text-shadow: var(--heading-shadow);
+      animation: slideInLeft 1s cubic-bezier(.4,1.4,.6,1) forwards;
+      text-shadow: var(--heading-shadow), 0 4px 24px #b4c5ff33;
+      position: relative;
+      z-index: 2;
+    }
+    header h1::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      margin: 0.5rem auto 0;
+      background: linear-gradient(90deg, #3a5aff 0%, #b4c5ff 100%);
+      border-radius: 2px;
+      animation: fadeIn 1.2s 1s forwards;
+      opacity: 0;
     }
     header p {
       margin: 0.2rem 0;
       color: #555;
       font-size: 1.08rem;
+      animation: fadeInUp 1.2s 0.7s forwards;
+      opacity: 0;
     }
     header a {
       color: var(--primary);
@@ -84,10 +143,25 @@
       margin: 0 0.5rem;
       transition: color var(--transition);
       border-bottom: 2px solid transparent;
+      position: relative;
+      z-index: 2;
+    }
+    header a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+      position: absolute;
+      left: 0; bottom: -2px;
     }
     header a:hover {
       color: var(--primary-dark);
       border-bottom: 2px solid var(--primary);
+    }
+    header a:hover::after {
+      width: 100%;
     }
     nav {
       background: var(--nav-bg);
@@ -105,20 +179,38 @@
       z-index: 10;
       backdrop-filter: blur(8px);
       transition: box-shadow 0.2s;
+      animation: fadeInDown 1.2s 0.5s forwards;
+      opacity: 0;
     }
     nav a {
       color: var(--primary-dark);
       text-decoration: none;
       padding: 0.3em 1.1em;
       border-radius: 999px;
-      transition: background var(--transition), color var(--transition);
+      transition: background var(--transition), color var(--transition), box-shadow 0.2s;
       letter-spacing: 0.01em;
       position: relative;
+      overflow: hidden;
+    }
+    nav a::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 0; height: 0;
+      background: radial-gradient(circle, #b4c5ff55 60%, transparent 100%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s;
+      z-index: 0;
     }
     nav a:hover, nav a.active {
       background: var(--primary);
       color: #fff;
       box-shadow: 0 2px 8px 0 rgba(58,90,255,0.10);
+    }
+    nav a:hover::before, nav a.active::before {
+      width: 180%;
+      height: 180%;
     }
     main {
       flex: 1;
@@ -129,17 +221,21 @@
       display: flex;
       flex-direction: column;
       gap: 2.2rem;
+      z-index: 2;
+      position: relative;
     }
     section {
       background: var(--card-bg);
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
       padding: 2.2rem 2.5rem 1.7rem 2.5rem;
-      animation: fadeInUp 1s ease forwards;
+      animation: fadeInUp 1s cubic-bezier(.4,1.4,.6,1) forwards;
       opacity: 0;
       transform: translateY(20px);
       margin-bottom: 0;
       transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
     }
     section:hover {
       box-shadow: 0 12px 36px 0 rgba(58,90,255,0.13);
@@ -147,6 +243,16 @@
     }
     section:not(:first-child) {
       margin-top: 0;
+    }
+    section::before {
+      content: '';
+      position: absolute;
+      left: -60px; top: -60px;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle, #b4c5ff33 0%, transparent 80%);
+      z-index: 0;
+      pointer-events: none;
+      animation: floatBubble 10s infinite alternate;
     }
     h2 {
       font-size: 1.55rem;
@@ -162,6 +268,10 @@
       background-clip: initial;
       text-shadow: 0 2px 8px rgba(58,90,255,0.04);
       transition: color 0.2s;
+      position: relative;
+      z-index: 2;
+      animation: floatIn 1.2s cubic-bezier(.4,1.4,.6,1) forwards;
+      opacity: 0;
     }
     /* Skills Section */
     .skills-section {
@@ -172,13 +282,25 @@
       margin-bottom: 0;
       border: 1.5px solid #e0e7ff;
       transition: box-shadow 0.2s, border 0.2s;
+      position: relative;
+      overflow: visible;
+      animation: fadeInUp 1.2s 0.2s forwards;
+      opacity: 0;
     }
-    .skills-section:hover {
-      box-shadow: 0 8px 32px 0 rgba(58,90,255,0.10);
-      border: 1.5px solid var(--primary);
+    .skills-section::after {
+      content: '';
+      position: absolute;
+      right: -40px; bottom: -40px;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle, #3a5aff22 0%, transparent 80%);
+      z-index: 0;
+      pointer-events: none;
+      animation: floatBubble 12s infinite alternate-reverse;
     }
     .skills-category {
       margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 2;
     }
     .skills-category:last-child {
       margin-bottom: 0;
@@ -190,12 +312,20 @@
       margin-bottom: 0.7rem;
       letter-spacing: 0.02em;
       text-shadow: 0 1px 4px #e0e7ff;
+      animation: fadeInLeft 1.1s 0.3s forwards;
+      opacity: 0;
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-30px);}
+      to { opacity: 1; transform: translateX(0);}
     }
     .skills-bubble-container {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
       align-items: center;
+      z-index: 2;
+      position: relative;
     }
     .skill-bubble {
       --bubble-color: #f0f0f0;
@@ -224,7 +354,16 @@
       border: 2px solid transparent;
       position: relative;
       overflow: hidden;
+      animation: floatIn 1.2s cubic-bezier(.4,1.4,.6,1) forwards;
+      opacity: 0;
     }
+    .skill-bubble:nth-child(1) { animation-delay: 0.2s;}
+    .skill-bubble:nth-child(2) { animation-delay: 0.4s;}
+    .skill-bubble:nth-child(3) { animation-delay: 0.6s;}
+    .skill-bubble:nth-child(4) { animation-delay: 0.8s;}
+    .skill-bubble:nth-child(5) { animation-delay: 1s;}
+    .skill-bubble:nth-child(6) { animation-delay: 1.2s;}
+    .skill-bubble:nth-child(7) { animation-delay: 1.4s;}
     .skill-bubble::after {
       content: '';
       position: absolute;
@@ -238,7 +377,7 @@
     .skill-bubble:focus {
       background: linear-gradient(90deg, var(--bubble-color) 60%, #b4c5ff 100%);
       color: var(--primary-dark);
-      transform: scale(1.09);
+      transform: scale(1.09) rotate(-2deg);
       box-shadow: 0 6px 24px 0 rgba(80, 120, 200, 0.18);
       border: 2px solid var(--primary);
       z-index: 1;
@@ -261,10 +400,16 @@
       font-weight: 600;
       position: relative;
       overflow: hidden;
+      animation: fadeInUp 1.1s cubic-bezier(.4,1.4,.6,1) forwards;
+      opacity: 0;
     }
+    .item:nth-child(1) { animation-delay: 0.2s;}
+    .item:nth-child(2) { animation-delay: 0.4s;}
+    .item:nth-child(3) { animation-delay: 0.6s;}
+    .item:nth-child(4) { animation-delay: 0.8s;}
     .item:hover {
       background: var(--item-hover);
-      transform: scale(1.03);
+      transform: scale(1.03) rotate(-1deg);
       box-shadow: 0 6px 24px 0 rgba(80, 120, 200, 0.13);
     }
     .item::after {
@@ -289,9 +434,11 @@
       background: rgba(0, 0, 0, 0.5);
       display: none;
       z-index: 1000;
+      animation: fadeIn 0.5s;
     }
     .overlay.active {
       display: block;
+      animation: fadeIn 0.5s;
     }
     .side-panel {
       position: fixed;
@@ -307,10 +454,16 @@
       z-index: 1001;
       border-radius: 1.2rem 0 0 1.2rem;
       display: none;
+      animation: slideInPanel 0.5s;
     }
     .side-panel.active {
       right: 0;
       display: block;
+      animation: slideInPanel 0.5s;
+    }
+    @keyframes slideInPanel {
+      from { right: -400px; opacity: 0;}
+      to { right: 0; opacity: 1;}
     }
     .close-btn {
       text-align: right;
@@ -319,6 +472,11 @@
       color: var(--primary-dark);
       margin-bottom: 1rem;
       font-weight: 700;
+      transition: color 0.2s;
+    }
+    .close-btn:hover {
+      color: #ff4d4d;
+      transform: scale(1.2) rotate(10deg);
     }
     .placeholder {
       width: 100%;
@@ -330,6 +488,7 @@
       display: block;
       object-fit: contain;
       max-width: 100%;
+      animation: fadeIn 1s;
     }
     /* Contact Form */
     #contact-form {
@@ -346,12 +505,14 @@
       transition: opacity 0.3s, transform 0.3s;
       opacity: 0;
       pointer-events: none;
-      transform: translateY(20px);
+      transform: translateY(20px) scale(0.98);
+      animation: floatIn 1s;
     }
     #contact-form.active {
       opacity: 1;
       pointer-events: auto;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
+      animation: floatIn 0.7s;
     }
     #contact-form h2 {
       margin-top: 0;
@@ -377,12 +538,13 @@
       resize: vertical;
       margin-bottom: 0.5rem;
       background: #f8fafc;
-      transition: border 0.2s;
+      transition: border 0.2s, box-shadow 0.2s;
     }
     #contact-form input:focus,
     #contact-form textarea:focus {
       border: 1.5px solid var(--primary);
       outline: none;
+      box-shadow: 0 0 8px #3a5aff33;
     }
     #contact-form textarea {
       height: 80px;
@@ -397,19 +559,20 @@
       cursor: pointer;
       border-radius: 6px;
       font-weight: 700;
-      transition: background-color 0.3s, box-shadow 0.2s;
+      transition: background-color 0.3s, box-shadow 0.2s, transform 0.2s;
       box-shadow: 0 2px 8px 0 rgba(58,90,255,0.10);
     }
     #contact-form button:hover {
       background-color: var(--primary-dark);
       box-shadow: 0 4px 16px 0 rgba(58,90,255,0.13);
+      transform: scale(1.05);
     }
     /* Floating message icon */
     #message-icon {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background-color: var(--primary);
+      background: linear-gradient(135deg, #3a5aff 60%, #b4c5ff 100%);
       width: 56px;
       height: 56px;
       border-radius: 50%;
@@ -423,11 +586,12 @@
       font-size: 28px;
       user-select: none;
       animation: bounce 2.5s infinite;
-      transition: background-color 0.3s, box-shadow 0.2s;
+      transition: background-color 0.3s, box-shadow 0.2s, transform 0.2s;
     }
     #message-icon:hover {
-      background-color: var(--primary-dark);
+      background: linear-gradient(135deg, #1a237e 60%, #3a5aff 100%);
       box-shadow: 0 8px 24px 0 rgba(58,90,255,0.18);
+      transform: scale(1.1) rotate(-10deg);
     }
     /* Responsive */
     @media (max-width: 900px) {
@@ -443,6 +607,7 @@
         font-size: 1rem;
         padding: 0.5em 0.5em;
       }
+      .animated-bg { height: 40vh;}
     }
     @media (max-width: 600px) {
       header {
@@ -527,6 +692,7 @@
       h2, #panelContent h2 {
         font-size: 1.1rem;
       }
+      .animated-bg { height: 28vh;}
     }
     /* Animations */
     @keyframes fadeInDown {
@@ -542,7 +708,8 @@
       to { opacity: 1; transform: translateY(0);}
     }
     @keyframes fadeIn {
-      to { opacity: 1; transform: translateX(0);}
+      from { opacity: 0;}
+      to { opacity: 1;}
     }
     @keyframes floatIn {
       from { opacity: 0; transform: translateY(30px);}
@@ -555,6 +722,13 @@
   </style>
 </head>
 <body>
+  <div class="animated-bg">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
   <header>
     <h1>DANASIRI P A</h1>
     <img src="https://i.postimg.cc/L6y4MFxq/profile.jpg" alt="Danasiri P A Profile Picture" class="profile-pic" onerror="this.onerror=null;this.src='https://via.placeholder.com/140?text=No+Image';" />
@@ -576,9 +750,7 @@
     <section id="summary">
       <h2>Professional Summary</h2>
       <p>
-        EEE graduate with hands-on experience in IIoT, embedded systems, and real-time dashboards.
-        Proficient in Python, SQL, and Grafana. Passionate about creating scalable technology solutions
-        with a strong foundation in control systems, automation, and software integration.
+        EEE graduate with core expertise in IIoT and Electric Vehicles, backed by hands-on projects in automation, control systems, and real-time data monitoring. Proficient in Python, SQL, and Grafana, with additional skills in Power BI, MS Excel, and Tableau for data analysis and dynamic dashboard creation. Experienced in embedded technologies and data integration across platforms. With this blend of engineering and analytical tools, I am well-equipped for roles in both core engineering and data analytics.
       </p>
     </section>
     <section id="skills" class="skills-section">
@@ -647,6 +819,41 @@
         <li><strong>DMNS Dr. Sivanthi Adithanar MHSS, Thoothukudi</strong><br />HSC – 91% (2021), SSLC – 88% (2019)</li>
       </ul>
     </section>
+          </ul>
+    </section>
+    <section id="achievements" style="animation: fadeInUp 1.2s 0.4s forwards; opacity:0;">
+      <h2>Achievements</h2>
+      <ul style="list-style: '★ '; padding-left: 1.2em;">
+        <li>Organized multiple school events and led 2 National-Level Symposiums at college.</li>
+        <li>Secured 2nd place in Business Planning at an Entrepreneurship Competition.</li>
+        <li>Received INR 2.5 lakhs from college for EV project; currently in institutional use.</li>
+      </ul>
+    </section>
+    <section id="softskills" style="animation: fadeInUp 1.2s 0.5s forwards; opacity:0;">
+      <h2>Soft Skills</h2>
+      <div style="display:flex; flex-wrap:wrap; gap:0.7em;">
+        <span class="skill-bubble" style="--bubble-color:#e6ffe6;">Leadership</span>
+        <span class="skill-bubble" style="--bubble-color:#e6f7ff;">Team Collaboration</span>
+        <span class="skill-bubble" style="--bubble-color:#fffbe6;">Problem Solving</span>
+        <span class="skill-bubble" style="--bubble-color:#ffe7c7;">Time Management</span>
+        <span class="skill-bubble" style="--bubble-color:#f9e6ff;">Adaptability</span>
+      </div>
+    </section>
+    <section id="languages" style="animation: fadeInUp 1.2s 0.6s forwards; opacity:0;">
+      <h2>Languages</h2>
+      <div style="display:flex; flex-wrap:wrap; gap:0.7em;">
+        <span class="skill-bubble" style="--bubble-color:#e0e7ff;">English – Full Professional</span>
+        <span class="skill-bubble" style="--bubble-color:#e6faff;">Tamil – Native</span>
+        <span class="skill-bubble" style="--bubble-color:#ffe6e6;">Hindi – Read and Write</span>
+      </div>
+    </section>
+    <section id="resume" style="animation: fadeInUp 1.2s 0.7s forwards; opacity:0; text-align:center;">
+      <h2>Resume</h2>
+      <a href="resume.pdf" download class="skill-bubble" style="--bubble-color:#d6f5ff; font-size:1.13rem; font-weight:700; padding:0.9em 2.2em; margin-top:1em; display:inline-block; transition:background 0.2s, color 0.2s;">
+        ⬇️ Download Resume
+      </a>
+    </section>
+  </main>
   </main>
   <form id="contact-form" action="mailto:padanasiri@gmail.com" method="post" enctype="text/plain" novalidate>
     <h2>Contact Me</h2>
@@ -665,6 +872,34 @@
     <div id="panelContent"></div>
   </div>
   <script>
+    // Animate nav and sections on load
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('nav').style.opacity = 1;
+      document.querySelectorAll('section').forEach((sec, i) => {
+        setTimeout(() => {
+          sec.style.opacity = 1;
+          sec.style.transform = 'translateY(0)';
+        }, 300 + i * 180);
+      });
+      document.querySelectorAll('.skills-category-title').forEach((el, i) => {
+        setTimeout(() => { el.style.opacity = 1; el.style.transform = 'translateX(0)'; }, 600 + i * 120);
+      });
+      document.querySelectorAll('.skill-bubble').forEach((el, i) => {
+        setTimeout(() => { el.style.opacity = 1; el.style.transform = 'translateY(0)'; }, 800 + i * 80);
+      });
+      document.querySelectorAll('.item').forEach((el, i) => {
+        setTimeout(() => { el.style.opacity = 1; el.style.transform = 'translateY(0)'; }, 1000 + i * 100);
+      });
+      document.querySelectorAll('h2').forEach((el, i) => {
+        setTimeout(() => { el.style.opacity = 1; el.style.transform = 'translateY(0)'; }, 500 + i * 120);
+      });
+      document.querySelector('header h1').style.opacity = 1;
+      document.querySelector('.profile-pic').style.opacity = 1;
+      document.querySelectorAll('header p').forEach((el, i) => {
+        setTimeout(() => { el.style.opacity = 1; }, 700 + i * 100);
+      });
+    });
+
     const slidePanel = document.getElementById('slidePanel');
     const panelContent = document.getElementById('panelContent');
     const closeBtn = document.getElementById('closeBtn');
@@ -674,33 +909,33 @@
     const detailsData = {
       proj1: {
         title: "Three-Wheeler Electric Vehicle Charging System",
-        desc: "Designed and implemented a real-world charging system, enhancing battery longevity.",
+        desc: "Developed a real-time charging system tailored for EVs, optimizing battery health and longevity.Integrated embedded hardware to manage power flow and charging efficiency.",
         img: ["https://i.postimg.cc/KYS1RJbT/ev.jpg","https://i.postimg.cc/6q33DPrk/ev2.jpg"],
-        tools: "Embedded Systems"
+        tools: "Embedded C, Microcontrollers, Power Electronics"
       },
       proj2: {
         title: "Women Safety Tool (IoT)",
-        desc: "Built a GPS + GSM-based alert system using embedded hardware.",
+        desc: "Engineered a portable safety device using GPS and GSM modules for instant location tracking and emergency alerts.Built on embedded C with real-time communication capabilities.",
         img: ["https://i.postimg.cc/gJ0Whkhh/ws.jpg","https://i.postimg.cc/fyGn1cr7/ws2.jpg"],
-        tools: "C, GPS, GSM Modules"
+        tools: "Embedded C, GPS Module, GSM Module,Arduino IDE"
       },
       proj3: {
         title: "Enhanced EV Management System",
-        desc: "Smart battery monitoring with real-time metrics.",
+        desc: "Designed a smart monitoring system for electric vehicle batteries with real-time data tracking.",
         img: "https://i.postimg.cc/ryR9Cgzz/evbat.jpg",
-        tools: "MATLAB, Arduino"
+        tools: "Proteus, Arduino Uno, Sensor Integration"
       },
       proj4: {
         title: "CNC Machine Monitoring App",
-        desc: "Android app integrated with Grafana to monitor CNC machines.",
+        desc: "Created an Android app linked to Grafana dashboards to monitor CNC machine performance.Enabled real-time machine analytics using database connectivity.",
         img: ["https://i.postimg.cc/pX5PkT6Y/vx5.jpg","https://i.postimg.cc/Px9QnvVt/kenna.jpg","https://i.postimg.cc/ZK3VZjhX/kenna2.jpg"],
-        tools: "Android, Grafana, MySQL"
+        tools: "Android Studio, Grafana, MySQL, Python"
       },
       intern1: {
         title: "KENNAMETAL India Pvt. Ltd.",
-        desc: "Developed Android app and Grafana dashboard for real-time CNC machine monitoring.",
+        desc: "Developed an integrated Android-Grafana solution to track CNC machine metrics in real time.Built SQL databases and dashboards for IIoT-based machine insights.",
         img: "https://i.postimg.cc/L5PB94Gj/kennacer.jpg",
-        tools: "Grafana, MySQL, Android"
+        tools: "Android Studio, Grafana, MySQL, Python"
       },
       intern2: {
         title: "Tuticorin Thermal Power Station",
@@ -716,29 +951,29 @@
       },
       intern4: {
         title: "NSIC (Virtual)",
-        desc: "Completed Android App development training.",
+        desc: "Completed a certified training on Android app development fundamentals.Learned to create UI, manage back-end logic, and integrate databases.",
         img: "https://i.postimg.cc/wMYRkXbs/nsic.jpg",
-        tools: "Android"
+        tools: "Android Development, Firebase (Intro), UI/UX Basics"
       },
       cert1: {
         title: "Microsoft Certified: Power BI Data Analyst",
-        desc: "Certification in Power BI analytics.",
+        desc: "Earned Microsoft certification in Power BI, showcasing skills in interactive dashboard creation, DAX, and data modeling.",
         img: "https://i.postimg.cc/5ttBHSZ4/microsoft.jpg",
-        tools: "Power BI",
+        tools: "Power BI, DAX, Data Modeling",
         link:"https://learn.microsoft.com/api/achievements/share/en-us/DANASIRIPA-0401/CXZXT4A9?sharingId=1370712EAAB51C1D"
       },
       cert2: {
         title: "Data Analytics Essentials",
-        desc: "Cisco Networking Academy training.",
+        desc: "Completed training in data lifecycle, basic analytics, and visualization using real-world datasets.",
         img: "https://i.postimg.cc/5y6bhNNJ/cisco.jpg",
-        tools: "Data Analysis",
+        tools: "Data Analysis, Data Cleaning, Visualization",
         link:"https://www.credly.com/badges/fd901fc0-b9fc-454b-82a3-ba0c70a95416/public_url"
       },
       cert3: {
         title: "Data Analytics – PrepInsta Prime",
-        desc: "Training on data analytics fundamentals.",
+        desc: "Gained practical knowledge in SQL querying, Excel functions, and business data analysis.",
         img: "https://i.postimg.cc/Fz8NN57L/prepinsta.jpg",
-        tools: "SQL, Excel"
+        tools: "MySQL, MS Excel, Data Interpretation"
       },
       cert4: {
         title: "Programming Foundations – LinkedIn Learning",
@@ -748,7 +983,7 @@
       },
       cert5: {
         title: "PCB with EAGLE",
-        desc: "PCB design with EAGLE tool.",
+        desc: "Learned schematic design, routing, and layout using Autodesk EAGLE for PCB development.",
         img: "https://i.postimg.cc/7hD1NV0G/pcb.jpg",
         tools: "EAGLE PCB Design"
       },
@@ -760,13 +995,12 @@
       },
       cert7: {
         title: "BEC A2 Certification",
-        desc: "Business English Certificate at A2 level.",
+        desc: "Certified in Business English communication with A2 level fluency in professional scenarios.",
         img: "https://i.postimg.cc/Zqxb3MDG/bec.jpg",
-        tools: "English Proficiency"
+        tools: "English Communication, Grammar, Listening & Speaking Skills"
       }
     };
     // Function to open side panel with details
-    // ...existing code...
     function openPanel(id) {
       const data = detailsData[id];
       if (!data) return;
@@ -787,8 +1021,7 @@
       `;
       slidePanel.classList.add('active');
       overlay.classList.add('active');
-}
-    
+    }
     // Close panel function
     function closePanel() {
       slidePanel.classList.remove('active');
