@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,7 +24,6 @@
       --nav-bg: rgba(255,255,255,0.92);
       --nav-shadow: 0 2px 12px 0 rgba(80, 120, 200, 0.10);
     }
-
     html, body {
       margin: 0;
       padding: 0;
@@ -35,13 +33,11 @@
       min-height: 100vh;
       scroll-behavior: smooth;
     }
-
     body {
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
-
     header {
       background: var(--card-bg);
       box-shadow: var(--shadow);
@@ -53,7 +49,6 @@
       z-index: 2;
       animation: fadeInDown 1s ease forwards;
     }
-
     .profile-pic {
       width: 140px;
       height: 140px;
@@ -68,7 +63,6 @@
       opacity: 0;
       animation-delay: 0.5s;
     }
-
     header h1 {
       font-size: 2.7rem;
       font-weight: 800;
@@ -78,13 +72,11 @@
       animation: slideInLeft 1s ease forwards;
       text-shadow: var(--heading-shadow);
     }
-
     header p {
       margin: 0.2rem 0;
       color: #555;
       font-size: 1.08rem;
     }
-
     header a {
       color: var(--primary);
       text-decoration: none;
@@ -93,12 +85,10 @@
       transition: color var(--transition);
       border-bottom: 2px solid transparent;
     }
-
     header a:hover {
       color: var(--primary-dark);
       border-bottom: 2px solid var(--primary);
     }
-
     nav {
       background: var(--nav-bg);
       margin: 0 auto 2rem auto;
@@ -116,7 +106,6 @@
       backdrop-filter: blur(8px);
       transition: box-shadow 0.2s;
     }
-
     nav a {
       color: var(--primary-dark);
       text-decoration: none;
@@ -126,13 +115,11 @@
       letter-spacing: 0.01em;
       position: relative;
     }
-
     nav a:hover, nav a.active {
       background: var(--primary);
       color: #fff;
       box-shadow: 0 2px 8px 0 rgba(58,90,255,0.10);
     }
-
     main {
       flex: 1;
       width: 100%;
@@ -143,7 +130,6 @@
       flex-direction: column;
       gap: 2.2rem;
     }
-
     section {
       background: var(--card-bg);
       border-radius: var(--border-radius);
@@ -155,16 +141,13 @@
       margin-bottom: 0;
       transition: box-shadow 0.2s, transform 0.2s;
     }
-
     section:hover {
       box-shadow: 0 12px 36px 0 rgba(58,90,255,0.13);
       transform: translateY(-2px) scale(1.01);
     }
-
     section:not(:first-child) {
       margin-top: 0;
     }
-
     h2 {
       font-size: 1.55rem;
       font-weight: 800;
@@ -180,7 +163,6 @@
       text-shadow: 0 2px 8px rgba(58,90,255,0.04);
       transition: color 0.2s;
     }
-
     /* Skills Section */
     .skills-section {
       background: var(--bg-gradient);
@@ -191,20 +173,16 @@
       border: 1.5px solid #e0e7ff;
       transition: box-shadow 0.2s, border 0.2s;
     }
-
     .skills-section:hover {
       box-shadow: 0 8px 32px 0 rgba(58,90,255,0.10);
       border: 1.5px solid var(--primary);
     }
-
     .skills-category {
       margin-bottom: 1.5rem;
     }
-
     .skills-category:last-child {
       margin-bottom: 0;
     }
-
     .skills-category-title {
       font-size: 1.13rem;
       font-weight: 700;
@@ -213,14 +191,12 @@
       letter-spacing: 0.02em;
       text-shadow: 0 1px 4px #e0e7ff;
     }
-
     .skills-bubble-container {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
       align-items: center;
     }
-
     .skill-bubble {
       --bubble-color: #f0f0f0;
       background: var(--bubble-color);
@@ -249,7 +225,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .skill-bubble::after {
       content: '';
       position: absolute;
@@ -259,7 +234,6 @@
       transition: opacity 0.2s;
       pointer-events: none;
     }
-
     .skill-bubble:hover,
     .skill-bubble:focus {
       background: linear-gradient(90deg, var(--bubble-color) 60%, #b4c5ff 100%);
@@ -273,7 +247,6 @@
     .skill-bubble:focus::after {
       opacity: 1;
     }
-
     /* Project/Internship/Certifications Cards */
     .item {
       cursor: pointer;
@@ -289,13 +262,11 @@
       position: relative;
       overflow: hidden;
     }
-
     .item:hover {
       background: var(--item-hover);
       transform: scale(1.03);
       box-shadow: 0 6px 24px 0 rgba(80, 120, 200, 0.13);
     }
-
     .item::after {
       content: '';
       position: absolute;
@@ -308,7 +279,6 @@
     .item:hover::after {
       opacity: 1;
     }
-
     /* Side Panel & Overlay */
     .overlay {
       position: fixed;
@@ -320,11 +290,9 @@
       display: none;
       z-index: 1000;
     }
-
     .overlay.active {
       display: block;
     }
-
     .side-panel {
       position: fixed;
       top: 0;
@@ -338,12 +306,12 @@
       overflow-y: auto;
       z-index: 1001;
       border-radius: 1.2rem 0 0 1.2rem;
+      display: none;
     }
-
     .side-panel.active {
       right: 0;
+      display: block;
     }
-
     .close-btn {
       text-align: right;
       cursor: pointer;
@@ -352,7 +320,6 @@
       margin-bottom: 1rem;
       font-weight: 700;
     }
-
     .placeholder {
       width: 100%;
       height: auto;
@@ -364,7 +331,6 @@
       object-fit: contain;
       max-width: 100%;
     }
-
     /* Contact Form */
     #contact-form {
       position: fixed;
@@ -382,13 +348,11 @@
       pointer-events: none;
       transform: translateY(20px);
     }
-
     #contact-form.active {
       opacity: 1;
       pointer-events: auto;
       transform: translateY(0);
     }
-
     #contact-form h2 {
       margin-top: 0;
       font-size: 1.18rem;
@@ -396,14 +360,12 @@
       color: var(--primary-dark);
       font-weight: 700;
     }
-
     #contact-form label {
       display: block;
       margin: 0.75rem 0 0.25rem;
       font-weight: 600;
       font-size: 0.97rem;
     }
-
     #contact-form input,
     #contact-form textarea {
       width: 100%;
@@ -417,17 +379,14 @@
       background: #f8fafc;
       transition: border 0.2s;
     }
-
     #contact-form input:focus,
     #contact-form textarea:focus {
       border: 1.5px solid var(--primary);
       outline: none;
     }
-
     #contact-form textarea {
       height: 80px;
     }
-
     #contact-form button {
       margin-top: 1rem;
       padding: 0.6rem 1.2rem;
@@ -441,12 +400,10 @@
       transition: background-color 0.3s, box-shadow 0.2s;
       box-shadow: 0 2px 8px 0 rgba(58,90,255,0.10);
     }
-
     #contact-form button:hover {
       background-color: var(--primary-dark);
       box-shadow: 0 4px 16px 0 rgba(58,90,255,0.13);
     }
-
     /* Floating message icon */
     #message-icon {
       position: fixed;
@@ -468,12 +425,10 @@
       animation: bounce 2.5s infinite;
       transition: background-color 0.3s, box-shadow 0.2s;
     }
-
     #message-icon:hover {
       background-color: var(--primary-dark);
       box-shadow: 0 8px 24px 0 rgba(58,90,255,0.18);
     }
-
     /* Responsive */
     @media (max-width: 900px) {
       main {
@@ -489,7 +444,6 @@
         padding: 0.5em 0.5em;
       }
     }
-
     @media (max-width: 600px) {
       header {
         padding: 1.2rem 0.3rem 1.2rem 0.3rem;
@@ -526,11 +480,17 @@
         right: 0;
         border-radius: 1.2rem 1.2rem 0 0;
         top: auto;
-        bottom: 0;
+        bottom: -70vh;
         height: 65vh;
         padding: 1.2rem 0.7rem 0.7rem 0.7rem;
         max-width: 100vw;
         overflow-y: auto;
+        display: none;
+        transition: bottom 0.3s var(--transition);
+      }
+      .side-panel.active {
+        display: block;
+        bottom: 0;
       }
       #contact-form {
         width: 95vw;
@@ -568,65 +528,32 @@
         font-size: 1.1rem;
       }
     }
-
     /* Animations */
     @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-20px);}
+      to { opacity: 1; transform: translateY(0);}
     }
     @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+      from { opacity: 0; transform: translateX(-30px);}
+      to { opacity: 1; transform: translateX(0);}
     }
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
     }
     @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+      to { opacity: 1; transform: translateX(0);}
     }
     @keyframes floatIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
     }
     @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-8px);
-      }
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(-8px);}
     }
   </style>
 </head>
-
 <body>
   <header>
     <h1>DANASIRI P A</h1>
@@ -637,7 +564,6 @@
       <a href="https://github.com/DanasiriPA" target="_blank">GitHub</a>
     </p>
   </header>
-
   <nav>
     <a href="#summary">Summary</a>
     <a href="#skills">Skills</a>
@@ -647,7 +573,6 @@
     <a href="#education">Education</a>
     <a href="#contact-form">Contact</a>
   </nav>
-
   <main>
     <section id="summary">
       <h2>Professional Summary</h2>
@@ -657,8 +582,6 @@
         with a strong foundation in control systems, automation, and software integration.
       </p>
     </section>
-
-    <!-- Modern Skills Section with Categories -->
     <section id="skills" class="skills-section">
       <h2>Skills</h2>
       <div class="skills-category">
@@ -694,7 +617,6 @@
         </div>
       </div>
     </section>
-
     <section id="projects">
       <h2>Projects</h2>
       <div class="item" data-id="proj1">Three-Wheeler Electric Vehicle Charging System</div>
@@ -702,7 +624,6 @@
       <div class="item" data-id="proj3">Enhanced EV Management System</div>
       <div class="item" data-id="proj4">CNC Machine Monitoring App</div>
     </section>
-
     <section id="internships">
       <h2>Internships & Training</h2>
       <div class="item" data-id="intern1">KENNAMETAL India Pvt. Ltd.</div>
@@ -710,7 +631,6 @@
       <div class="item" data-id="intern3">NLC India Ltd.</div>
       <div class="item" data-id="intern4">NSIC (Virtual)</div>
     </section>
-
     <section id="certifications">
       <h2>Certifications</h2>
       <div class="item" data-id="cert1">Microsoft Certified: Power BI Data Analyst</div>
@@ -720,7 +640,6 @@
       <div class="item" data-id="cert5">PCB with EAGLE</div>
       <div class="item" data-id="cert6">BEC A2 Certification</div>
     </section>
-
     <section id="education">
       <h2>Education</h2>
       <ul>
@@ -729,33 +648,22 @@
       </ul>
     </section>
   </main>
-
-  <!-- Contact Form as sliding floating box bottom right - initially hidden -->
   <form id="contact-form" action="mailto:padanasiri@gmail.com" method="post" enctype="text/plain" novalidate>
     <h2>Contact Me</h2>
     <label for="name">Name:</label>
     <input type="text" id="name" name="Name" required />
-
     <label for="email">Email:</label>
     <input type="email" id="email" name="Email" required />
-
     <label for="message">Message:</label>
     <textarea id="message" name="Message" required></textarea>
-
     <button type="submit">Send Message</button>
   </form>
-
-  <!-- Floating message icon -->
-  <div id="message-icon" title="Contact Me">
-    &#9993;
-  </div>
-
+  <div id="message-icon" title="Contact Me">&#9993;</div>
   <div class="overlay" id="overlay"></div>
-  <div class="side-panel" id="slidePanel">
+  <div class="side-panel" id="slidePanel" style="display:none;">
     <div class="close-btn" id="closeBtn">&times;</div>
     <div id="panelContent"></div>
   </div>
-
   <script>
     const slidePanel = document.getElementById('slidePanel');
     const panelContent = document.getElementById('panelContent');
@@ -763,7 +671,6 @@
     const overlay = document.getElementById('overlay');
     const contactForm = document.getElementById('contact-form');
     const messageIcon = document.getElementById('message-icon');
-
     const detailsData = {
       proj1: {
         title: "Three-Wheeler Electric Vehicle Charging System",
@@ -789,7 +696,6 @@
         img: "https://via.placeholder.com/300",
         tools: "Android, Grafana, MySQL"
       },
-
       intern1: {
         title: "KENNAMETAL India Pvt. Ltd.",
         desc: "Developed Android app and Grafana dashboard for real-time CNC machine monitoring.",
@@ -814,7 +720,6 @@
         img: "https://via.placeholder.com/300",
         tools: "Android"
       },
-
       cert1: {
         title: "Microsoft Certified: Power BI Data Analyst",
         desc: "Certification in Power BI analytics.",
@@ -852,13 +757,10 @@
         tools: "English Proficiency"
       }
     };
-
     // Function to open side panel with details
     function openPanel(id) {
       const data = detailsData[id];
       if (!data) return;
-
-      // If img is an array, show all images
       let imagesHtml = '';
       if (Array.isArray(data.img)) {
         imagesHtml = data.img.map(src =>
@@ -867,7 +769,6 @@
       } else {
         imagesHtml = `<img src="${data.img}" alt="${data.title}" class="placeholder" />`;
       }
-
       panelContent.innerHTML = `
         <h2>${data.title}</h2>
         ${imagesHtml}
@@ -877,41 +778,43 @@
       slidePanel.classList.add('active');
       overlay.classList.add('active');
     }
-
     // Close panel function
     function closePanel() {
       slidePanel.classList.remove('active');
       overlay.classList.remove('active');
+      setTimeout(() => { slidePanel.style.display = "none"; }, 300);
     }
-
     // Toggle contact form visibility
     function toggleContactForm() {
       contactForm.classList.toggle('active');
     }
-
     // Event listeners
     document.querySelectorAll('.item').forEach(item => {
       item.addEventListener('click', () => {
+        slidePanel.style.display = "block";
+        setTimeout(() => slidePanel.classList.add('active'), 10);
+        overlay.classList.add('active');
         openPanel(item.getAttribute('data-id'));
       });
     });
-
     closeBtn.addEventListener('click', closePanel);
     overlay.addEventListener('click', () => {
       closePanel();
       contactForm.classList.remove('active');
     });
-
     messageIcon.addEventListener('click', toggleContactForm);
-
-    // Close contact form when clicking outside
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closePanel();
         contactForm.classList.remove('active');
       }
     });
+    // Hide panel on load
+    window.onload = () => {
+      slidePanel.classList.remove('active');
+      slidePanel.style.display = "none";
+      overlay.classList.remove('active');
+    };
   </script>
 </body>
-
 </html>
