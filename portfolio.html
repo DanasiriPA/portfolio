@@ -600,7 +600,7 @@
 <body>
   <header>
     <h1>DANASIRI P A</h1>
-    <img src="https://via.placeholder.com/150" alt="Danasiri P A Profile Picture" class="profile-pic" />
+    <img src="https://i.postimg.cc/L6y4MFxq/profile.jpg" alt="Danasiri P A Profile Picture" class="profile-pic" onerror="this.onerror=null;this.src='https://via.placeholder.com/140?text=No+Image';" />
     <p>Thoothukudi — +91 8870148234 — padanasiri@gmail.com</p>
     <p>
       <a href="https://linkedin.com/in/danasiripa" target="_blank">LinkedIn</a> |
@@ -738,7 +738,7 @@
       proj1: {
         title: "Three-Wheeler Electric Vehicle Charging System",
         desc: "Designed and implemented a real-world charging system, enhancing battery longevity.",
-        img: "https://via.placeholder.com/300",
+        img: ["https://i.postimg.cc/KYS1RJbT/ev.jpg","https://i.postimg.cc/6q33DPrk/ev2.jpg"],
         tools: "Embedded Systems"
       },
       proj2: {
@@ -825,18 +825,28 @@
 
     // Function to open side panel with details
     function openPanel(id) {
-      const data = detailsData[id];
-      if (!data) return;
+  const data = detailsData[id];
+  if (!data) return;
 
-      panelContent.innerHTML = `
-        <h2>${data.title}</h2>
-        <img src="${data.img}" alt="${data.title}" class="placeholder" />
-        <p>${data.desc}</p>
-        <p><strong>Tools/Technologies:</strong> ${data.tools}</p>
-      `;
-      slidePanel.classList.add('active');
-      overlay.classList.add('active');
-    }
+  // If img is an array, show all images
+  let imagesHtml = '';
+  if (Array.isArray(data.img)) {
+    imagesHtml = data.img.map(src =>
+      `<img src="${src}" alt="${data.title}" class="placeholder" />`
+    ).join('');
+  } else {
+    imagesHtml = `<img src="${data.img}" alt="${data.title}" class="placeholder" />`;
+  }
+
+  panelContent.innerHTML = `
+    <h2>${data.title}</h2>
+    ${imagesHtml}
+    <p>${data.desc}</p>
+    <p><strong>Tools/Technologies:</strong> ${data.tools}</p>
+  `;
+  slidePanel.classList.add('active');
+  overlay.classList.add('active');
+}
 
     // Close panel function
     function closePanel() {
