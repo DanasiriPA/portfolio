@@ -492,28 +492,28 @@
     }
     /* Contact Form */
     #contact-form {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      width: 340px;
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 1.2rem;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.13);
-      z-index: 1101;
-      font-size: 1rem;
-      transition: opacity 0.3s, transform 0.3s;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(20px) scale(0.98);
-      animation: floatIn 1s;
-    }
-    #contact-form.active {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0) scale(1);
-      animation: floatIn 0.7s;
-    }
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 340px;
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.13);
+  z-index: 1101;
+  font-size: 1rem;
+  transition: opacity 0.3s, transform 0.3s;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px) scale(0.98);
+  /* animation removed */
+}
+#contact-form.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  animation: floatIn 0.7s;
+}
     #contact-form h2 {
       margin-top: 0;
       font-size: 1.18rem;
