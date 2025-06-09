@@ -681,61 +681,63 @@
       proj2: {
         title: "Women Safety Tool (IoT)",
         desc: "Built a GPS + GSM-based alert system using embedded hardware.",
-        img: "https://via.placeholder.com/300",
+        img: ["ws.jpg","ws2.jpg"],
         tools: "C, GPS, GSM Modules"
       },
       proj3: {
         title: "Enhanced EV Management System",
         desc: "Smart battery monitoring with real-time metrics.",
-        img: "https://via.placeholder.com/300",
+        img: "evbat.jpg",
         tools: "MATLAB, Arduino"
       },
       proj4: {
         title: "CNC Machine Monitoring App",
         desc: "Android app integrated with Grafana to monitor CNC machines.",
-        img: "https://via.placeholder.com/300",
+        img: ["vx5.jpg","kenna.jpg","kenna2.jpg"],
         tools: "Android, Grafana, MySQL"
       },
       intern1: {
         title: "KENNAMETAL India Pvt. Ltd.",
         desc: "Developed Android app and Grafana dashboard for real-time CNC machine monitoring.",
-        img: "https://via.placeholder.com/300",
+        img: "kennacer.jpg",
         tools: "Grafana, MySQL, Android"
       },
       intern2: {
         title: "Tuticorin Thermal Power Station",
         desc: "Gained exposure to power generation systems and safety protocols.",
-        img: "https://via.placeholder.com/300",
+        img: "ttps.jpg",
         tools: "Power Systems"
       },
       intern3: {
         title: "NLC India Ltd.",
         desc: "Learned about power transmission and industrial control systems.",
-        img: "https://via.placeholder.com/300",
+        img: "nlc.jpg",
         tools: "Control Systems"
       },
       intern4: {
         title: "NSIC (Virtual)",
         desc: "Completed Android App development training.",
-        img: "https://via.placeholder.com/300",
+        img: "nsic.jpg",
         tools: "Android"
       },
       cert1: {
         title: "Microsoft Certified: Power BI Data Analyst",
         desc: "Certification in Power BI analytics.",
-        img: "https://via.placeholder.com/300",
-        tools: "Power BI"
+        img: "microsoft.jpg",
+        tools: "Power BI",
+        link:"https://learn.microsoft.com/api/achievements/share/en-us/DANASIRIPA-0401/CXZXT4A9?sharingId=1370712EAAB51C1D"
       },
       cert2: {
         title: "Data Analytics Essentials",
         desc: "Cisco Networking Academy training.",
-        img: "https://via.placeholder.com/300",
-        tools: "Data Analysis"
+        img: "cisco.jpg",
+        tools: "Data Analysis",
+        link:"https://www.credly.com/badges/fd901fc0-b9fc-454b-82a3-ba0c70a95416/public_url"
       },
       cert3: {
         title: "Data Analytics – PrepInsta Prime",
         desc: "Training on data analytics fundamentals.",
-        img: "https://via.placeholder.com/300",
+        img: "prepinsta.jpg",
         tools: "SQL, Excel"
       },
       cert4: {
@@ -753,11 +755,12 @@
       cert6: {
         title: "BEC A2 Certification",
         desc: "Business English Certificate at A2 level.",
-        img: "https://via.placeholder.com/300",
+        img: "bec.jpg",
         tools: "English Proficiency"
       }
     };
     // Function to open side panel with details
+    // ...existing code...
     function openPanel(id) {
       const data = detailsData[id];
       if (!data) return;
@@ -774,10 +777,12 @@
         ${imagesHtml}
         <p>${data.desc}</p>
         <p><strong>Tools/Technologies:</strong> ${data.tools}</p>
+        ${data.link ? `<p><a href="${data.link}" target="_blank" style="color:var(--primary);font-weight:600;">View Certificate Badge</a></p>` : ''}
       `;
       slidePanel.classList.add('active');
       overlay.classList.add('active');
-    }
+}
+    
     // Close panel function
     function closePanel() {
       slidePanel.classList.remove('active');
